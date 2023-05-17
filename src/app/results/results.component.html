@@ -1,0 +1,21 @@
+<div *ngIf="finishedQuiz">
+  <div *ngFor="let question of finishedQuiz">
+    <div class="card-header">{{question.question}}</div>
+    <div class="btn-group">
+      <div *ngFor="let answer of question.answers">
+        <button [class]="getButtonClass(question, answer)" disabled>{{answer}}</button>
+      </div>
+    </div>
+
+  </div>
+  <div>
+      <span [class]="resultClass">
+        {{results}}
+      </span>
+  </div>
+  <div class="d-grid gap-2">
+    <button (click)="reset()" class="btn btn-outline-primary" type="button">
+      Create a new quiz
+    </button>
+  </div>
+</div>

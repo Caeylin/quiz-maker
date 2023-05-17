@@ -1,0 +1,43 @@
+<div class="container">
+  <form #categoryForm="ngForm" (ngSubmit)="createQuiz()">
+    <div class="row">
+      <div class="col">
+        <select [(ngModel)]="selectedCategory" class="form-select" id="categorySelect" name="categories-dropdown"
+                required>
+          <option [disabled]="true">Select a category</option>
+          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <select [(ngModel)]="selectedDifficulty" class="form-select" id="difficultySelect" name="difficulty-dropdown"
+                required>
+          <option [disabled]="true">Select difficulty</option>
+          <option *ngFor="let difficulty of difficulties" [value]="difficulty | lowercase">{{difficulty}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <button [disabled]="!categoryForm.form.valid" class="btn btn-outline-primary" id="createBtn" type="submit">
+          <span>Create</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="quiz-form-group">
+  <div *ngIf="quiz">
+    <div *ngFor="let question of quiz">
+      <div class="card-header">{{question.question}}</div>
+      <div *ngFor="let answer of question.answers, index as i" class="btn-group">
+        <button (click)="selectAnswer(i, question, quiz)"
+                [class.active]="question.selectedAnswer === answer"
+                class="btn btn-outline-success" type="button">{{answer}}</button>
+      </div>
+    </div>
+  </div>
+  <button (click)="submitQuiz(quiz)" [hidden]="!quizFinished" class="btn btn-outline-primary" id="submitBtn"
+          type="submit">
+    <span>Submit</span>
+  </button>
+</div>
